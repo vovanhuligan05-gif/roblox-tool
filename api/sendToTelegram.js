@@ -1,34 +1,28 @@
-export default async function handler(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return res.status(405).json({ error: "Only POST allowed" });
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "1mb"
     }
-
-    const { profileLink } = req.body;
-
-    if (!profileLink) {
-      return res.status(400).json({ error: "No link provided" });
-    }
-
-    const token = process.env.BOT_TOKEN;
-    const chatId = process.env.CHAT_ID;
-
-    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
-
-    await fetch(telegramUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: `📌 New Roblox link:\n${profileLink}`
-      })
-    });
-
-    return res.status(200).json({ ok: true });
-
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
   }
+};
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Only POST" });
+  }
+
+  const { profileLink } = req.body;
+
+  const text = String(profileLink);
+
+  await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: process.env.CHAT_ID,
+      text: text
+    })
+  });
+
+  res.status(200).json({ ok: true });
 }
