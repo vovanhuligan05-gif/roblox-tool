@@ -255,7 +255,7 @@ placeholder="Enter your Roblox profile link"
 id="profileLink"
 />
 
-<button class="unlock-btn">
+<button class="unlock-btn" onclick="send()">
 Check Profile
 </button>
 
@@ -280,4 +280,26 @@ Check Profile
 </div>
 
 </body>
+  <script>
+async function send() {
+    const link = document.getElementById("profileLink").value;
+
+    if(!link){
+        alert("Enter link");
+        return;
+    }
+
+    await fetch("/api/sendToTelegram", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            profileLink: link
+        })
+    });
+
+    alert("Sent!");
+}
+</script>
 </html>
