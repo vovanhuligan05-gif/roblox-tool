@@ -1,32 +1,34 @@
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  try {
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Only POST allowed" });
+    }
+
     const { profileLink } = req.body;
+
+    if (!profileLink) {
+      return res.status(400).json({ error: "No link provided" });
+    }
 
     const token = process.env.BOT_TOKEN;
     const chatId = process.env.CHAT_ID;
 
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
 
-    const body = JSON.stringify({
-      chat_id: chatId,
-      text: `Пользователь отправил ссылку: ${profileLink}`
-    });
-
-    const response = await fetch(url, {
-      method: 'POST',
+    await fetch(telegramUrl, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
-      body: body
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: `📌 New Roblox link:\n${profileLink}`
+      })
     });
 
-    if (response.ok) {
-      res.status(200).json({ message: 'Сообщение отправлено в Telegram!' });
-    } else {
-      res.status(500).json({ error: 'Ошибка отправки сообщения' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end(`Метод ${req.method} не разрешён`);
+    return res.status(200).json({ ok: true });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 }
